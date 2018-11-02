@@ -32,13 +32,13 @@ public class Person {
 		this.yLoc = yLoc;
 	}
 
-	public Person(String name, int xLoc, int yLoc, int floor, String[] inventory)
+	public Person(String name, int xLoc, int yLoc, int floor)
 	{
 		this.name = name;
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
 		this.floor = floor;
-		this.inventory = inventory;
+		//this.inventory = inventory;
 	}
 
 }

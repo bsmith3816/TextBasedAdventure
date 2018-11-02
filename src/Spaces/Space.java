@@ -10,6 +10,7 @@ public class Space {
     {
         xLoc = x;
         yLoc = y;
+        occupant = null;
     }
 
     public void enterSpace(Person x){
@@ -17,6 +18,13 @@ public class Space {
         occupant = x;
         x.setxLoc(this.xLoc);
         x.setyLoc(this.yLoc);
+    }
+
+    public String toString() {
+        if(occupant == null){
+            return "[ ] ";
+        }
+        return "[P] ";
     }
 
     public void leaveSpace()
