@@ -32,7 +32,7 @@ public class Person {
 		this.yLoc = yLoc;
 	}
 
-	public Person(String name, int xLoc, int yLoc, int floor)
+	public Person(String name, int yLoc, int xLoc, int floor)
 	{
 		this.name = name;
 		this.xLoc = xLoc;
