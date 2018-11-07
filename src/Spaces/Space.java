@@ -14,7 +14,9 @@ public class Space {
     }
 
     public void enterSpace(Person x){
-        System.out.println("You entered an empty space.");
+        int y = (int)(Math.random()*20);
+        System.out.println("You entered an empty space. You found " + y + " money.");
+        x.changeMoney(y);
         occupant = x;
         x.setxLoc(this.xLoc);
         x.setyLoc(this.yLoc);
@@ -23,8 +25,9 @@ public class Space {
     public String toString() {
         if(occupant == null){
             return "[ ] ";
+        } else {
+            return "[P] ";
         }
-        return "[P] ";
     }
 
     public void leaveSpace()

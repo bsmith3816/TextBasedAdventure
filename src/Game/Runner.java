@@ -25,7 +25,8 @@ public class Runner {
 
 
         //Setup player 1 and the input scanner
-        Person player1 = new Person("Bob", 4, 2, 0);
+        String[] inventory = new String[0];
+        Person player1 = new Person("Bob", 4, 2, 0, 50, 20, inventory);
         floor0.enterSpace(player1, 4, 2);
 
 
@@ -35,16 +36,32 @@ public class Runner {
         Floor currentFloor = floor0;
 
         while (gameOn) {
-            System.out.println("Where would you like to move? (Choose N, S, E, W)");
-            String move = input.nextLine();
-            if (validMove(move, player1, currentFloor)) {
-                System.out.println("Your coordinates: row = " + player1.getxLoc() + " col = " + player1.getyLoc());
-                System.out.println(currentFloor);
+            System.out.println("What would you like to do? Type 'move' or 'help'.");
+            String action = input.nextLine();
 
-            } else {
-                System.out.println("Please choose a valid move.");
+            if (action.equals("move")){
+                System.out.println("Where would you like to move? (Choose N, S, E, W)");
+                String move = input.nextLine();
+
+                if (validMove(move, player1, currentFloor)) {
+                    System.out.println("Your coordinates: row = " + player1.getyLoc() + " col = " + player1.getxLoc());
+                    System.out.println(currentFloor);
+
+                } else {
+                    System.out.println("Please choose a valid move.");
+                }
             }
 
+            else if (action.equals("help")){
+                System.out.println("[P] stands for the space you are currently in." +
+                        "[S] stands for a store space, where you can purchase items" +
+                        "[^] stands for a staircase, where you can progress to the next floor." +
+                        "[ ] may be an empty space, or there may be an enemy, in which you would need to fight.");
+            }
+
+            else {
+                System.out.println("Please choose a valid action.");
+            }
 
         }
         input.close();
@@ -55,10 +72,10 @@ public class Runner {
         move = move.toLowerCase().trim();
         switch (move) {
             case "n":
-                if (p.getxLoc() > 0)
+                if (p.getyLoc() > 0)
                 {
-                    map.leaveSpace(p, p.getyLoc(), p.getxLoc());
-                    map[p.getxLoc()-1][p.getyLoc()].enterSpace(p);
+                    map.leaveSpace(p.getyLoc(), p.getxLoc());
+                    map.enterSpace(p,p.getyLoc()-1,p.getxLoc());
                     return true;
                 }
                 else
@@ -66,10 +83,10 @@ public class Runner {
                     return false;
                 }
             case "e":
-                if (p.getyLoc()< map[p.getyLoc()].length -1)
+                if (p.getxLoc() < map.getWidth() -1)
                 {
-                    map[p.getxLoc()][p.getyLoc()].leaveSpace(p);
-                    map[p.getxLoc()][p.getyLoc() + 1].enterSpace(p);
+                    map.leaveSpace(p.getyLoc(), p.getxLoc());
+                    map.enterSpace(p,p.getyLoc(),p.getxLoc()+1);
                     return true;
                 }
                 else
@@ -78,10 +95,10 @@ public class Runner {
                 }
 
             case "s":
-                if (p.getxLoc() < map.length - 1)
+                if (p.getyLoc() < map.getHeight() - 1)
                 {
-                    map[p.getxLoc()][p.getyLoc()].leaveSpace(p);
-                    map[p.getxLoc()+1][p.getyLoc()].enterSpace(p);
+                    map.leaveSpace(p.getyLoc(), p.getxLoc());
+                    map.enterSpace(p,p.getyLoc()+1,p.getxLoc());
                     return true;
                 }
                 else
@@ -90,10 +107,10 @@ public class Runner {
                 }
 
             case "w":
-                if (p.getyLoc() > 0)
+                if (p.getxLoc() > 0)
                 {
-                    map[p.getxLoc()][p.getyLoc()].leaveSpace(p);
-                    map[p.getxLoc()][p.getyLoc()-1].enterSpace(p);
+                    map.leaveSpace(p.getyLoc(), p.getxLoc());
+                    map.enterSpace(p,p.getyLoc(),p.getxLoc()-1);
                     return true;
                 }
                 else

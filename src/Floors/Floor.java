@@ -13,10 +13,10 @@ public class Floor {
     }
 
     public Floor(int w, int h){
-        floor = new Space[w][h];
-        for(w = 0; w < floor.length; w++){
-            for(h = 0; h < floor[w].length; h++){
-                floor[w][h] = new Space(w, h);
+        floor = new Space[h][w];
+        for(h = 0; h < floor.length; h++){
+            for(w = 0; w < floor[h].length; w++){
+                floor[h][w] = new Space(w, h);
             }
         }
         width = w;
@@ -33,7 +33,7 @@ public class Floor {
     public void generateShop(){
         int x = (int)(Math.random()*width);
         int y = (int)(Math.random()*height);
-        floor[x][y] = new Shop(x, y);
+        floor[y][x] = new Shop(x, y);
     }
 
     public int getWidth(){
