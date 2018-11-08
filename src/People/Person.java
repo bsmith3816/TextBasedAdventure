@@ -5,7 +5,7 @@ package People;
  */
 public class Person {
 	String name;
-	int xLoc, yLoc, floor, money, HP;
+	int xLoc, yLoc, floor, money, maxHP, HP;
 	String[] inventory;
 
 	public int getFloor() {
@@ -61,15 +61,30 @@ public class Person {
 
 	}
 
-	public Person(String name, int yLoc, int xLoc, int floor, int money, int HP, String[] inventory)
+	public void changeHP(int x){
+		HP += x;
+	}
+
+	public int getHP(){
+		return HP;
+	}
+
+	public int getMaxHP(){
+		return maxHP;
+	}
+
+	public Person(String name, int yLoc, int xLoc, int floor, int money, int maxHP, int HP, String[] inventory)
 	{
 		this.name = name;
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
 		this.floor = floor;
 		this.money = money;
+		this.maxHP = maxHP;
 		this.HP = HP;
 		this.inventory = inventory;
 	}
+
+
 
 }

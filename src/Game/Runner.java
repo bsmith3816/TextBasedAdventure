@@ -13,20 +13,21 @@ public class Runner {
 
 
         //Floor 0
-        Floor floor0 = new Floor(5, 5);
-        Floor floor1 = new Floor(7, 7);
-        Floor floor2 = new Floor(9, 9);
-        Floor floor3 = new Floor(11, 11);
-        Floor floor4 = new Floor(13, 13);
-        Floor floor5 = new Floor(1, 2);
+        Floor floor0 = new Floor(5, 5, 0);
+        Floor floor1 = new Floor(7, 7, 1);
+        Floor floor2 = new Floor(9, 9, 2);
+        Floor floor3 = new Floor(11, 11, 3);
+        Floor floor4 = new Floor(13, 13, 4);
+        Floor floor5 = new Floor(1, 2, 5);
 
         //Floor 0
         floor0.generateShop();
+        floor0.generateEnemies(3);
 
 
         //Setup player 1 and the input scanner
         String[] inventory = new String[0];
-        Person player1 = new Person("Bob", 4, 2, 0, 50, 20, inventory);
+        Person player1 = new Person("Bob", 4, 2, 0, 50, 50, 50, inventory);
         floor0.enterSpace(player1, 4, 2);
 
 
@@ -35,10 +36,11 @@ public class Runner {
         Scanner input = new Scanner(System.in);
         Floor currentFloor = floor0;
 
+        //Turn
         while (gameOn) {
             System.out.println("What would you like to do? Type 'move' or 'help'.");
             String action = input.nextLine();
-
+            //Move
             if (action.equals("move")){
                 System.out.println("Where would you like to move? (Choose N, S, E, W)");
                 String move = input.nextLine();
@@ -51,7 +53,7 @@ public class Runner {
                     System.out.println("Please choose a valid move.");
                 }
             }
-
+            // Help
             else if (action.equals("help")){
                 System.out.println("[P] stands for the space you are currently in." +
                         "[S] stands for a store space, where you can purchase items" +
@@ -67,6 +69,7 @@ public class Runner {
         input.close();
     }
 
+    //Checks if input is valid move and if so, makes the move
     public static boolean validMove(String move, Person p, Floor map)
     {
         move = move.toLowerCase().trim();
@@ -124,6 +127,7 @@ public class Runner {
         return true;
     }
 
+    //Shuts the game off
     public static void gameOff()
     {
         gameOn = false;

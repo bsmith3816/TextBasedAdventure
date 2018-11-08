@@ -2,17 +2,18 @@ package Floors;
 import People.Person;
 import Spaces.Space;
 import Spaces.Shop;
+import Spaces.Enemy;
 
 
 public class Floor {
     private Space[][] floor;
-    private int width, height;
+    private int width, height, floorNum;
 
     public Floor(Space[][] x){
         floor = x;
     }
 
-    public Floor(int w, int h){
+    public Floor(int w, int h, int f){
         floor = new Space[h][w];
         for(h = 0; h < floor.length; h++){
             for(w = 0; w < floor[h].length; w++){
@@ -21,6 +22,7 @@ public class Floor {
         }
         width = w;
         height = h;
+        floorNum = f;
     }
 
     public void enterSpace(Person a, int y, int x){
@@ -34,6 +36,14 @@ public class Floor {
         int x = (int)(Math.random()*width);
         int y = (int)(Math.random()*height);
         floor[y][x] = new Shop(x, y);
+    }
+
+    public void generateEnemies(int a){
+        for(int i = 0; i < a; i++){
+            int x = (int)(Math.random()*width);
+            int y = (int)(Math.random()*height);
+            floor[y][x] = new Enemy(x, y, floorNum);
+        }
     }
 
     public int getWidth(){

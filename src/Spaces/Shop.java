@@ -12,7 +12,7 @@ public class Shop extends Space{
 
     @Override
     public void enterSpace(Person x){
-        occupant = x;
+        occupant = "Person";
         x.setxLoc(this.xLoc);
         x.setyLoc(this.yLoc);
 
@@ -20,7 +20,7 @@ public class Shop extends Space{
         Scanner input = new Scanner(System.in);
         System.out.println("You entered the store.");
 
-        while(leave == false){
+        while(!leave){
             System.out.println("What would you like to buy? You have " + x.getMoney() + " money.");
             System.out.println("Potion - 50G");
             System.out.println("Green Shroom - 100G");

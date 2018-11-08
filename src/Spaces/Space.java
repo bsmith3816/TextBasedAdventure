@@ -1,9 +1,10 @@
 package Spaces;
 
 import People.Person;
+import People.WeakGoblin;
 
 public class Space {
-    Person occupant;
+    String occupant;
     int xLoc,yLoc;
 
     public Space(int x, int y)
@@ -17,7 +18,7 @@ public class Space {
         int y = (int)(Math.random()*20);
         System.out.println("You entered an empty space. You found " + y + " money.");
         x.changeMoney(y);
-        occupant = x;
+        occupant = "Player";
         x.setxLoc(this.xLoc);
         x.setyLoc(this.yLoc);
     }
@@ -25,8 +26,11 @@ public class Space {
     public String toString() {
         if(occupant == null){
             return "[ ] ";
-        } else {
+        } else if (occupant.equals("Player")){
             return "[P] ";
+        }
+        else {
+            return "[!] ";
         }
     }
 
