@@ -12,8 +12,8 @@ public class Person {
 		return floor;
 	}
 
-	public void setFloor() {
-		this.floor = floor;
+	public void setFloor(int x) {
+		floor = x;
 	}
 
 	public int getxLoc() {
@@ -38,6 +38,7 @@ public class Person {
 			a[i] = inventory[i];
 		}
 		a[inventory.length] = x;
+		inventory = a;
 	}
 
 	public void changeMoney(int x){
@@ -48,21 +49,29 @@ public class Person {
 		return money;
 	}
 
-	public String printInventory(){
+	public void printInventory(){
 		String result = "";
 		if(inventory.length == 0){
-			return "You have no items.";
+			System.out.println("You have no items.");
 		} else {
 			for(int i = 0; i < inventory.length; i++){
 				result += inventory[i] + " ";
 			}
-			return result;
+			System.out.println(result);
 		}
 
 	}
 
 	public void changeHP(int x){
 		HP += x;
+	}
+	public void changeHP(String a){
+		if(a.equals("max")){
+			HP = maxHP;
+		}
+		if(a.equals("revive")){
+			HP = 25;
+		}
 	}
 
 	public int getHP(){
@@ -71,6 +80,11 @@ public class Person {
 
 	public int getMaxHP(){
 		return maxHP;
+	}
+
+	public void Attack(Person x){
+		int y = (int)(Math.random()*5);
+		x.changeHP(-y);
 	}
 
 	public Person(String name, int yLoc, int xLoc, int floor, int money, int maxHP, int HP, String[] inventory)

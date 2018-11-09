@@ -11,7 +11,6 @@ public class Runner {
 
     public static void main(String[] args) {
 
-
         //Floor 0
         Floor floor0 = new Floor(5, 5, 0);
         Floor floor1 = new Floor(7, 7, 1);
@@ -20,16 +19,29 @@ public class Runner {
         Floor floor4 = new Floor(13, 13, 4);
         Floor floor5 = new Floor(1, 2, 5);
 
-        //Floor 0
-        floor0.generateShop();
-        floor0.generateEnemies(3);
-
 
         //Setup player 1 and the input scanner
         String[] inventory = new String[0];
         Person player1 = new Person("Bob", 4, 2, 0, 50, 50, 50, inventory);
         floor0.enterSpace(player1, 4, 2);
 
+        //Generate floors
+        floor0.generateShop();
+        floor0.generateStairs();
+        floor0.generateEnemies(3);
+        floor1.generateShop();
+        floor1.generateStairs();
+        floor1.generateEnemies(5);
+        floor2.generateShop();
+        floor2.generateStairs();
+        floor2.generateEnemies(8);
+        floor3.generateShop();
+        floor3.generateStairs();
+        floor3.generateEnemies(8);
+        floor4.generateShop();
+        floor4.generateStairs();
+        floor4.generateEnemies(11);
+        floor5.generateWin();
 
         System.out.println(floor0);
 
@@ -46,6 +58,29 @@ public class Runner {
                 String move = input.nextLine();
 
                 if (validMove(move, player1, currentFloor)) {
+                    if (player1.getFloor() == 0) {
+                        currentFloor = floor0;
+                    }
+                    if (player1.getFloor() == 1) {
+                        currentFloor = floor1;
+                        floor1.enterSpace(player1, player1.getyLoc(), player1.getxLoc());
+                    }
+                    if (player1.getFloor() == 2) {
+                        currentFloor = floor2;
+                        floor2.enterSpace(player1, player1.getyLoc(), player1.getxLoc());
+                    }
+                    if (player1.getFloor() == 3) {
+                        currentFloor = floor3;
+                        floor3.enterSpace(player1, player1.getyLoc(), player1.getxLoc());
+                    }
+                    if (player1.getFloor() == 4) {
+                        currentFloor = floor4;
+                        floor4.enterSpace(player1, player1.getyLoc(), player1.getxLoc());
+                    }
+                    if (player1.getFloor() == 5) {
+                        currentFloor = floor5;
+                        floor5.enterSpace(player1, player1.getyLoc(), player1.getxLoc());
+                    }
                     System.out.println("Your coordinates: row = " + player1.getyLoc() + " col = " + player1.getxLoc());
                     System.out.println(currentFloor);
 

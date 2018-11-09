@@ -1,8 +1,6 @@
 package Floors;
 import People.Person;
-import Spaces.Space;
-import Spaces.Shop;
-import Spaces.Enemy;
+import Spaces.*;
 
 
 public class Floor {
@@ -37,12 +35,26 @@ public class Floor {
         int y = (int)(Math.random()*height);
         floor[y][x] = new Shop(x, y);
     }
+    public void generateStairs(){
+        for(int i = 0; i < 1; i++){
+            int x = (int)(Math.random()*width);
+            if(!floor[0][x].hasOccupant()) {
+                floor[0][x] = new Stairs(x, 0);
+            } else {
+                i--;
+            }
+        }
+    }
 
     public void generateEnemies(int a){
         for(int i = 0; i < a; i++){
             int x = (int)(Math.random()*width);
             int y = (int)(Math.random()*height);
-            floor[y][x] = new Enemy(x, y, floorNum);
+            if(!floor[y][x].hasOccupant()) {
+                floor[y][x] = new Enemy(x, y, floorNum);
+            } else {
+                i--;
+            }
         }
     }
 
@@ -52,6 +64,14 @@ public class Floor {
 
     public int getHeight(){
         return height;
+    }
+
+    public int getFloor(){
+        return floorNum;
+    }
+
+    public void generateWin(){
+        floor[0][0] = new Win(0,0);
     }
 
     // Prints Floor
