@@ -52,9 +52,9 @@ public class Shop extends Space{
                 }
             }
             if(act.toLowerCase().equals("spell")){
-                if(x.getMoney() >= 100){
+                if(x.getMoney() >= 80){
                     x.addInventory("Spell");
-                    x.changeMoney(-100);
+                    x.changeMoney(-80);
                     System.out.println("You purchased a Spell.");
                 }
                 else {

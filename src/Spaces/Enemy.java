@@ -14,18 +14,17 @@ public class Enemy extends Space{
     public Enemy(int x, int y, int floor){
         super(x,y);
         this.floor = floor;
-        String[] gInventory = new String[0];
         if(this.floor == 0) {
             occupant = "Weak Goblin";
-            e = new WeakGoblin("Weak Goblin", x, y, floor, 10, 15, 15, gInventory);
+            e = new WeakGoblin(10, 15, 15);
         }
         if(this.floor == 1 || this.floor == 2) {
             occupant = "Regular Goblin";
-            e = new RegularGoblin("Regular Goblin", x, y, floor, 10, 15, 15, gInventory);
+            e = new RegularGoblin(10, 30, 30);
         }
         if(this.floor == 3 || this.floor == 4) {
             occupant = "Strong Goblin";
-            e = new StrongGoblin("Strong Goblin", x, y, floor, 10, 15, 15, gInventory);
+            e = new StrongGoblin(10, 50, 50);
         }
     }
     public void enterSpace(Person p){
@@ -40,7 +39,7 @@ public class Enemy extends Space{
                 z = false;
                 String act = input.nextLine();
                 if (act.toLowerCase().equals("attack")) {
-                    e.changeHP((int) (Math.random() * -10) - 5);
+                    e.changeHP((int) (Math.random() * (p.getLevel()) * -5) - (5 * p.getLevel()));
                     e.Attack(p);
                     if (p.getHP() <= 0 && !gShroom) {
                         gameOver();
@@ -54,25 +53,32 @@ public class Enemy extends Space{
 
                 } else if (act.toLowerCase().equals("defend")) {
                     e.Attack(p);
-                    p.changeHP((int) (Math.random() * 5));
+                    p.changeHP((int) (Math.random() * 4) + 1);
+                    if(p.getHP() > p.getMaxHP()){
+                        p.changeHP("max");
+                    }
                     System.out.println("You have " + p.getHP() + "/" + p.getMaxHP() + " HP. The enemy has " + e.getHP() + " HP.");
                 } else if (act.toLowerCase().equals("use item")) {
-                    System.out.println("Which item would you like to use?");
-                    p.printInventory();
+                    if(p.emptyInventory()){
+                        z = true;
+                        System.out.println("Your inventory is empty.");
+                    }
                     while(!z) {
+                        p.printInventory();
+                        System.out.println("Which item would you like to use? Type 'cancel' to go back.");
                         act = input.nextLine();
-                        if (act.toLowerCase().equals("green shroom")) {
+                        if (act.toLowerCase().equals("green shroom") && p.hasItem("Green Shroom")) {
                             gShroom = true;
                             z = true;
                             e.Attack(p);
-                        } else if (act.toLowerCase().equals("potion")) {
+                        } else if (act.toLowerCase().equals("potion") && p.hasItem("Potion")) {
                             p.changeHP(25);
                             if(p.getHP() > p.getMaxHP()){
                                 p.changeHP("max");
                             }
                             z = true;
                             e.Attack(p);
-                        } else if (act.toLowerCase().equals("spell")) {
+                        } else if (act.toLowerCase().equals("spell") && p.hasItem("Spell")) {
                             e.changeHP(-25);
                             z = true;
                             e.Attack(p);
@@ -99,6 +105,7 @@ public class Enemy extends Space{
 
             }
             p.changeMoney(e.getMoney());
+            p.addSlain();
             occupant = "Player";
             p.setxLoc(this.xLoc);
             p.setyLoc(this.yLoc);

@@ -22,7 +22,7 @@ public class Runner {
 
         //Setup player 1 and the input scanner
         String[] inventory = new String[0];
-        Person player1 = new Person("Bob", 4, 2, 0, 50, 50, 50, inventory);
+        Person player1 = new Person("Bob", 4, 2, 0, 50, 50, 50, 1, 0, inventory);
         floor0.enterSpace(player1, 4, 2);
 
         //Generate floors
@@ -31,16 +31,16 @@ public class Runner {
         floor0.generateEnemies(3);
         floor1.generateShop();
         floor1.generateStairs();
-        floor1.generateEnemies(5);
+        floor1.generateEnemies(6);
         floor2.generateShop();
         floor2.generateStairs();
-        floor2.generateEnemies(8);
+        floor2.generateEnemies(10);
         floor3.generateShop();
         floor3.generateStairs();
-        floor3.generateEnemies(8);
+        floor3.generateEnemies(15);
         floor4.generateShop();
         floor4.generateStairs();
-        floor4.generateEnemies(11);
+        floor4.generateEnemies(20);
         floor5.generateWin();
 
         System.out.println(floor0);
@@ -90,9 +90,10 @@ public class Runner {
             }
             // Help
             else if (action.equals("help")){
-                System.out.println("[P] stands for the space you are currently in." +
-                        "[S] stands for a store space, where you can purchase items" +
-                        "[^] stands for a staircase, where you can progress to the next floor." +
+                System.out.println("[P] stands for the space you are currently in. \n" +
+                        "[x] stands for a space that you've already visited/cleared. \n" +
+                        "[S] stands for a store space, where you can purchase items. \n" +
+                        "[^] stands for a staircase, where you can progress to the next floor. \n" +
                         "[ ] may be an empty space, or there may be an enemy, in which you would need to fight.");
             }
 

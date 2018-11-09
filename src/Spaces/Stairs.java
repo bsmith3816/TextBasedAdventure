@@ -36,6 +36,7 @@ public class Stairs extends Space{
                     p.setyLoc(4);
                 }
                 z = true;
+                occupant = "";
             } else if (act.equals("no")) {
                 z = true;
             } else {

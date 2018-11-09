@@ -5,7 +5,7 @@ package People;
  */
 public class Person {
 	String name;
-	int xLoc, yLoc, floor, money, maxHP, HP;
+	int xLoc, yLoc, floor, money, maxHP, HP, level, slain;
 	String[] inventory;
 
 	public int getFloor() {
@@ -41,14 +41,6 @@ public class Person {
 		inventory = a;
 	}
 
-	public void changeMoney(int x){
-		money += x;
-	}
-
-	public int getMoney(){
-		return money;
-	}
-
 	public void printInventory(){
 		String result = "";
 		if(inventory.length == 0){
@@ -59,7 +51,29 @@ public class Person {
 			}
 			System.out.println(result);
 		}
+	}
 
+	public boolean emptyInventory(){
+		if(inventory.length == 0){
+			return true;
+		} return false;
+	}
+
+	public void changeMoney(int x){
+		money += x;
+	}
+
+	public int getMoney(){
+		return money;
+	}
+
+	public boolean hasItem(String str){
+		for(int i = 0; i < inventory.length; i++){
+			if(inventory[i].equals(str)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void changeHP(int x){
@@ -82,12 +96,65 @@ public class Person {
 		return maxHP;
 	}
 
+	public void addSlain(){
+		slain++;
+		if(slain == 3){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 2!");
+		}
+		if(slain == 7){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 3!");
+		}
+		if(slain == 11){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 4!");
+		}
+		if(slain == 15){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 5!");
+		}
+		if(slain == 19){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 6!");
+		}
+		if(slain == 23){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 7!");
+		}
+		if(slain == 27){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 8!");
+		}
+		if(slain == 31){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 9!");
+		}
+		if(slain == 35){
+			level++;
+			maxHP += 5;
+			System.out.println("You reached level 10!");
+		}
+	}
+
+	public int getLevel(){
+		return level;
+	}
+
 	public void Attack(Person x){
 		int y = (int)(Math.random()*5);
 		x.changeHP(-y);
 	}
 
-	public Person(String name, int yLoc, int xLoc, int floor, int money, int maxHP, int HP, String[] inventory)
+	public Person(String name, int yLoc, int xLoc, int floor, int money, int maxHP, int HP, int level, int slain, String[] inventory)
 	{
 		this.name = name;
 		this.xLoc = xLoc;
@@ -96,7 +163,14 @@ public class Person {
 		this.money = money;
 		this.maxHP = maxHP;
 		this.HP = HP;
+		this.level = level;
+		this.slain = slain;
 		this.inventory = inventory;
+	}
+	public Person(int money, int maxHP, int HP){
+		this.money = money;
+		this.maxHP = maxHP;
+		this.HP = HP;
 	}
 
 
